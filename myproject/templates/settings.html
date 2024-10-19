@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    User Settings
+{% endblock %}
+
+{% block content %}
+    <h1>User Settings</h1>
+
+    <h2>Update Profile Information</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+
+    <hr>
+
+    <h2>Change Password</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ password_form.as_p }}
+        <button type="submit" class="btn btn-danger">Change Password</button>
+    </form>
+{% endblock %}
