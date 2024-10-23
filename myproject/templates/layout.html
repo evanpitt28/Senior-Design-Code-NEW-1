@@ -21,15 +21,14 @@
             <span role="img" aria-label="About" title="About">About</span>
         </a> | 
        
-       <!-- 
+       
         <a href="{% url 'posts:list' %}">
             <span role="img" aria-label="Posts" title="Posts">Posts</span>
         </a> | 
         {% if user.is_authenticated %}
             <a href="{% url 'posts:new-post' %}">
                 <span role="img" aria-label="New Post" title="New Post">New Post</span>
-            </a> | -->
-
+            </a> | 
             <form class="logout" action="{% url 'users:logout' %}" method="post">
                 {% csrf_token %} 
                 <button class="logout-button" aria-label="User Logout" title="User Logout">User Logout</button>
