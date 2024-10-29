@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 
 from django.http import JsonResponse
-from .models import DataPoint
+from django.db import models
 
 def data_view(request):
     data_points = DataPoint.objects.all()
@@ -12,3 +12,6 @@ def data_view(request):
         "values": [point.value for point in data_points],
     }
     return JsonResponse(data)
+
+def index(request):
+    return render(request,'index.html')
