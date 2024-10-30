@@ -54,7 +54,10 @@
             <span>TEAM 6 BME 489</span>
         </div>
         <a href="#">Calibrate</a>
-        <a href="#">Import Data</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'import_data_upload' %}">Import Data</a>
+        {% endif %}
+        
         <a href="#">Export Data</a>
         <a href="#">New Patient</a>
         {% if user.is_authenticated %}

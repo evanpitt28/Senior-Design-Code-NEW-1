@@ -31,7 +31,8 @@ def settings_view(request):
 
 def homepage(request):
     # return HttpResponse("Hello World! I'm Home.")
-    return render(request, 'home.html')
+    upload_result = request.session.pop('upload_result', None)  # Get result and clear it from session
+    return render(request, 'home.html', {'upload_result': upload_result})
 
 
 def about(request):
