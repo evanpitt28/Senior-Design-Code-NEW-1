@@ -1,11 +1,13 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h1>Import EEG Data</h1>
+<div class="import-data-container">
+    <h1>Import EEG Data</h1>
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Upload</button>
-</form>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Upload</button>
+    </form>
+</div>
 {% endblock %}

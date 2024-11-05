@@ -22,13 +22,11 @@
         </a> | 
        
        
-        <a href="{% url 'posts:list' %}">
-            <span role="img" aria-label="Posts" title="Posts">Posts</span>
-        </a> | 
+       
+
         {% if user.is_authenticated %}
-            <a href="{% url 'posts:new-post' %}">
-                <span role="img" aria-label="New Post" title="New Post">New Post</span>
-            </a> | 
+         
+
             <form class="logout" action="{% url 'users:logout' %}" method="post">
                 {% csrf_token %} 
                 <button class="logout-button" aria-label="User Logout" title="User Logout">User Logout</button>
@@ -53,14 +51,12 @@
             <img src="{% static 'path-to-your-logo.png' %}" alt="Team Logo" class="logo">
             <span>TEAM 6 BME 489</span>
         </div>
-        <a href="#">Calibrate</a>
+       
         {% if user.is_authenticated %}
+            <a href="#">Calibrate</a>
             <a href="{% url 'import_data_upload' %}">Import Data</a>
-        {% endif %}
-        
-        <a href="#">Export Data</a>
-        <a href="#">New Patient</a>
-        {% if user.is_authenticated %}
+            <a href="#">Export Data</a>
+            <a href="#">New Patient</a>
             <a href="{% url 'settings' %}">Settings</a>
         {% endif %}
     </div>
