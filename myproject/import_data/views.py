@@ -9,8 +9,8 @@ def import_data_view(request):
         if form.is_valid():
             eeg_file = form.save()  # Save the uploaded file
             # Placeholder: process the file and get the result
-            processed_data = preprocess_eeg(eeg_file.file.path)
-            ml_result = run_ml_model(processed_data)
+            processed_data, PSD_data, EEG_image = preprocess_eeg(eeg_file.file.path)
+            ml_result = run_ml_model(processed_data, PSD_data)
             
             # Option 1: Pass result directly to the template
             return render(request, 'import_data/result.html', {'result': ml_result})
