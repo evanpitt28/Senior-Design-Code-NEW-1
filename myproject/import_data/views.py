@@ -1,26 +1,38 @@
 from django.shortcuts import render, redirect
-from .forms import EEGFileUploadForm
 from .models import EEGFile
-from .processing import preprocess_eeg, run_ml_model  # Assuming these are processing functions
+from .forms import EEGFileUploadForm
+from .processing import preprocess_eeg, run_ml_model
+import os
+from django.conf import settings
 
 def import_data_view(request):
     if request.method == 'POST':
         form = EEGFileUploadForm(request.POST, request.FILES)
         if form.is_valid():
             eeg_file = form.save()  # Save the uploaded file
-            # Placeholder: process the file and get the result
-            processed_data, PSD_data, EEG_image = preprocess_eeg(eeg_file.file.path)
-            ml_result = run_ml_model(processed_data, PSD_data)
+            file_path = os.path.join(settings.MEDIA_ROOT, eeg_file.file.name)  # Full path to the uploaded file
             
-            # Option 1: Pass result directly to the template
-            return render(request, 'import_data/result.html', {'result': ml_result})
+            # Run the preprocessing function
+            processed_data, PSD_data, EEG_image = preprocess_eeg(file_path)
             
-            # Option 2: Redirect to result page (if you prefer a separate result view)
-            # request.session['ml_result'] = ml_result
-            # return redirect('import_data_result')
-
+            # Run the ML model on the processed data
+            result = run_ml_model(processed_data, PSD_data)
+            
+            # Save the EEG plot as an image file
+            eeg_plot_path = os.path.join(settings.MEDIA_ROOT, 'uploads', 'eeg_plot.png')
+            EEG_image.savefig(eeg_plot_path)  # Save the matplotlib figure as an image
+            EEG_image.close()  # Close the plot to free memory
+            
+            # Create a URL for the plot
+            eeg_plot_url = os.path.join(settings.MEDIA_URL, 'uploads', 'eeg_plot.png')
+            
+            # Pass the result and plot URL to the template
+            context = {
+                'result': result,
+                'eeg_plot_url': eeg_plot_url  # URL to access the EEG plot image
+            }
+            return render(request, 'import_data/result.html', context)
     else:
         form = EEGFileUploadForm()
-
+    
     return render(request, 'import_data/upload.html', {'form': form})
-

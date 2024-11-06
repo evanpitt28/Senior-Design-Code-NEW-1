@@ -1,6 +1,13 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h1>EEG Data Processing Result</h1>
-<p>Stroke Detection Result: {{ result }}</p>
+<h2>EEG Analysis Result</h2>
+
+<p>{{ result }}</p> <!-- Display the ML result -->
+
+{% if eeg_plot_url %}
+    <h3>EEG Plot</h3>
+    <img src="{{ eeg_plot_url }}" alt="EEG Plot" style="max-width: 100%;">
+{% endif %}
+
 {% endblock %}
