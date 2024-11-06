@@ -3,6 +3,9 @@ from .models import EEGFile
 from .forms import EEGFileUploadForm
 from .processing import preprocess_eeg, run_ml_model
 import os
+import mne
+import matplotlib
+matplotlib.use('Agg')
 from django.conf import settings
 
 def import_data_view(request):
@@ -13,15 +16,16 @@ def import_data_view(request):
             file_path = os.path.join(settings.MEDIA_ROOT, eeg_file.file.name)  # Full path to the uploaded file
             
             # Run the preprocessing function
-            processed_data, PSD_data, EEG_image = preprocess_eeg(file_path)
+            processed_data, PSD_data = preprocess_eeg(file_path)
             
             # Run the ML model on the processed data
             result = run_ml_model(processed_data, PSD_data)
             
             # Save the EEG plot as an image file
             eeg_plot_path = os.path.join(settings.MEDIA_ROOT, 'uploads', 'eeg_plot.png')
+            EEG_image = processed_data.plot(show=False, block=False)
             EEG_image.savefig(eeg_plot_path)  # Save the matplotlib figure as an image
-            EEG_image.close()  # Close the plot to free memory
+            #EEG_image.close()  # Close the plot to free memory
             
             # Create a URL for the plot
             eeg_plot_url = os.path.join(settings.MEDIA_URL, 'uploads', 'eeg_plot.png')

@@ -25,8 +25,8 @@ from mne.simulation import (
 )
 
 
-EDFInputPath = 'EDFFiles'
-EDFOutputPath = 'OutputFiles'
+# EDFInputPath = 'EDFFiles'
+# EDFOutputPath = 'OutputFiles'
 
 def preprocess_eeg(file_path):
     # Placeholder function to simulate preprocessing
@@ -35,14 +35,14 @@ def preprocess_eeg(file_path):
 
 
     def AllEDFProcess(EDFFolder):
-        if not os.path.exists(EDFOutputPath):
-            os.makedirs(EDFOutputPath)
+        # if not os.path.exists(EDFOutputPath):
+        #     os.makedirs(EDFOutputPath)
     
-        for FileName in os.listdir(EDFFolder):
-          if FileName.endswith('.edf'):
-             EDFFilePath = os.path.join(EDFFolder, FileName)
-             processed_data, PSD_data, EEG_image = EDFProcess(EDFFilePath)
-             return processed_data, PSD_data, EEG_image
+        # for FileName in os.listdir(EDFFolder):
+        #   if FileName.endswith('.edf'):
+        #      EDFFilePath = os.path.join(EDFFolder, FileName)
+        processed_data, PSD_data, EEG_image = EDFProcess(EDFFolder)
+        return processed_data, PSD_data
 
 
     def EDFProcess(EDFFilePath):
@@ -51,19 +51,22 @@ def preprocess_eeg(file_path):
 
         BPEEGDataFile = BPFilter(RawEEGDataFile)
 
-        OutputFileName = f"filtered_{os.path.splitext(os.path.basename(EDFFilePath))[0]}.fif"
-        OutputFile = os.path.join(EDFOutputPath, OutputFileName)
-        BPEEGDataFile.save(OutputFile, overwrite=True)
-        EEG_image = RawEEGDataFile.plot()
-    
+        # OutputFileName = f"filtered_{os.path.splitext(os.path.basename(EDFFilePath))[0]}.fif"
+        # OutputFile = os.path.join(EDFOutputPath, OutputFileName)
+        # BPEEGDataFile.save(OutputFile, overwrite=True)
+
+        EEG_image = RawEEGDataFile
+        #EEG_image = 'peepeepoopoo'
+        
+
         ADRatioDF = AlphaDeltaProcess(BPEEGDataFile)
     
-        PSDOutputFileName = f"PSD_{os.path.splitext(os.path.basename(EDFFilePath))[0]}.csv"
-        PSDOutputFile = os.path.join(EDFOutputPath, PSDOutputFileName)
-        ADRatioDF.to_csv(PSDOutputFile, index=False)
+        # PSDOutputFileName = f"PSD_{os.path.splitext(os.path.basename(EDFFilePath))[0]}.csv"
+        # PSDOutputFile = os.path.join(EDFOutputPath, PSDOutputFileName)
+        # ADRatioDF.to_csv(PSDOutputFile, index=False)
 
-        print(f"Finished and saved file {EDFFilePath} to {OutputFile}")
-        print(f"Finished and saved PSD data to {PSDOutputFile}")
+        #print(f"Finished and saved file {EDFFilePath} to {OutputFile}")
+        #print(f"Finished and saved PSD data to {PSDOutputFile}")
         return BPEEGDataFile, ADRatioDF, EEG_image
 
     def BPFilter(RawEEGDataFile):
@@ -96,14 +99,14 @@ def preprocess_eeg(file_path):
 
 
 
-    processed_data, PSD_data, EEG_image = AllEDFProcess(file_path)
+    processed_data, PSD_data = AllEDFProcess(file_path)
 
-    return processed_data, PSD_data, EEG_image
+    return processed_data, PSD_data
 
 def run_ml_model(processed_data, PSD_data):
     # Placeholder function to simulate running the ML model
     print(f"Running ML model on data: {processed_data}")
-    display(processed_data)
-    display(PSD_data)
+    #display(processed_data)
+    #display(PSD_data)
     result = "Stroke: 98%"  # Simulated result
     return result
