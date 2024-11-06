@@ -103,5 +103,7 @@ def preprocess_eeg(file_path):
 def run_ml_model(processed_data, PSD_data):
     # Placeholder function to simulate running the ML model
     print(f"Running ML model on data: {processed_data}")
+    display(processed_data)
+    display(PSD_data)
     result = "Stroke: 98%"  # Simulated result
     return result
