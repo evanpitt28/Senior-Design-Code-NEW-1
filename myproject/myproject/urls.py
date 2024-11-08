@@ -22,6 +22,7 @@ from . import views
 from django.conf.urls.static import static 
 from django.conf import settings 
 from django.views.static import serve
+from .views import bargraph
 
 
 urlpatterns = [
@@ -34,7 +35,8 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('settings/', views.settings_view, name='settings'),
     path('bargraph/', include('bargraph.urls')),
-    path('import_data/', include('import_data.urls')),  # Include all URLs in import_data/urls.py
+    path('import_data/', include('import_data.urls')),
+    path('bargraph/', bargraph, name='bargraph'),  # Include all URLs in import_data/urls.py
 ]
 
 if settings.DEBUG:

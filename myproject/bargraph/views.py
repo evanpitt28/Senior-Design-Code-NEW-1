@@ -4,14 +4,12 @@ from django.shortcuts import render
 
 from django.http import JsonResponse
 from django.db import models
+from django.utils.timezone import now
+
+def bargraph(request):
+    return render(request, 'bargraph.html')
 
 def data_view(request):
-    data_points = DataPoint.objects.all()
-    data = {
-        "labels": [point.label for point in data_points],
-        "values": [point.value for point in data_points],
-    }
-    return JsonResponse(data)
+    # Your view logic here
+    return render(request, 'data_template.html')
 
-def index(request):
-    return render(request,'index.html')

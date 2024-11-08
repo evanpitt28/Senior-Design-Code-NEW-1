@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import UserUpdateForm
-
+from bargraph.barscript import create_bar_graph_with_ci
+from django.utils.timezone import now
 
 @login_required
 def settings_view(request):
@@ -39,3 +40,11 @@ def homepage(request):
 def about(request):
     # return HttpResponse("My About page.")
     return render(request, 'about.html')
+
+def bargraph(request):
+    create_bar_graph_with_ci()  # Call the function to generate the graph
+    return render(request, 'bargraph.html')
+
+def bar_chart_view(request):
+    create_bar_graph_with_ci()  # Generate the updated image
+    return render(request, 'bar_chart.html', {'timestamp': now().timestamp()})
