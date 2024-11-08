@@ -4,6 +4,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import UserUpdateForm
 
+
 @login_required
 def settings_view(request):
     if request.method == 'POST':

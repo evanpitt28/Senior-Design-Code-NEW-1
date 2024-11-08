@@ -40,7 +40,7 @@ nav a:hover {
 /* Sidebar styling */
 .sidebar {
     width: 200px;
-    background-color: #7DF9FF;
+    background-color: #2788bb;
     padding: 2rem 1rem;
     position: fixed;
     top: 60px; /* Set this to the height of the nav bar */
@@ -58,8 +58,10 @@ nav a:hover {
 }
 
 .sidebar a:hover {
-    background-color: #F0F0F0;
+    background-color: #3aa5de;
 }
+
+
 
 /* Main content */
 main {
@@ -88,7 +90,7 @@ h2 {
     display: flex;
     align-items: center;
     padding: 1rem;
-    background-color: #00BFFF; /* Use the background color from the image */
+    background-color: #2788bb; /* Use the background color from the image */
     color: white;
     font-size: 1.5rem;
     font-weight: bold;
@@ -135,7 +137,7 @@ h2 {
 
 .import-data-container form input[type="file"] {
     padding: 0.5rem;
-    border: 2px solid #00BFFF; /* Matches sidebar color */
+    border: 2px solid #2788bb; /* Matches sidebar color */
     border-radius: 4px;
     font-size: 1rem;
     cursor: pointer;
@@ -143,11 +145,11 @@ h2 {
 }
 
 .import-data-container form input[type="file"]:hover {
-    border-color: #007acc; /* Slightly darker border on hover */
+    border-color: #2478a5; /* Slightly darker border on hover */
 }
 
 .import-data-container .btn {
-    background-color: #00BFFF; /* Consistent with sidebar blue */
+    background-color: #2788bb; /* Consistent with sidebar blue */
     color: white;
     border: none;
     border-radius: 4px;
@@ -156,5 +158,5 @@ h2 {
 }
 
 .import-data-container .btn:hover {
-    background-color: #007acc; /* Darken on hover */
+    background-color: #2478a5; /* Darken on hover */
 }

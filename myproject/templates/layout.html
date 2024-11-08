@@ -48,16 +48,16 @@
     <div class="sidebar">
           <!-- Logo -->
         <div class="page-title">
-            <img src="{% static 'media/strokettc.png' %}" alt="Team Logo" class="logo">
-            <span>TEAM 6 BME 489</span>
+            <img src="{% static 'images/strokettc2.png' %}" alt="Team Logo" class="logo" style="width:100%; max-width:200px; height:100%; max-height:400px">
+            <!--span>TEAM 6 BME 489</span-->
         </div>
        
         {% if user.is_authenticated %}
-            <a href="#">Calibrate</a>
+            <h2><a href="#">Calibrate</a>
             <a href="{% url 'import_data_upload' %}">Import Data</a>
             <a href="#">Export Data</a>
             <a href="#">New Patient</a>
-            <a href="{% url 'settings' %}">Settings</a>
+            <a href="{% url 'settings' %}">Settings</a></h2>
         {% endif %}
     </div>
 

@@ -6,11 +6,12 @@
 
 {% block content %}
     <h1>User Settings</h1>
-
+    <br>
     <h2>Update Profile Information</h2>
     <form method="POST">
         {% csrf_token %}
         {{ user_form.as_p }}
+        <br>
         <button type="submit" class="btn btn-primary">Update Profile</button>
     </form>
 
@@ -20,6 +21,7 @@
     <form method="POST">
         {% csrf_token %}
         {{ password_form.as_p }}
+        <br>
         <button type="submit" class="btn btn-danger">Change Password</button>
     </form>
 {% endblock %}
