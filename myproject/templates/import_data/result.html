@@ -7,7 +7,24 @@
 
 {% if eeg_plot_url %}
     <h3>EEG Plot</h3>
-    <img src="{{ eeg_plot_url }}" alt="EEG Plot" style="max-width: 100%;">
+    <div class="scroll-container">
+        <img src="{{ eeg_plot_url }}" alt="EEG Plot" class="eeg-plot">
+    </div>
 {% endif %}
+
+<style>
+    .scroll-container {
+        width: 100%;
+        overflow-x: auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+        white-space: nowrap;
+    }
+
+    .eeg-plot {
+        height: 300px;  /* Adjusted to make it less tall */
+        display: inline-block;
+    }
+</style>
 
 {% endblock %}

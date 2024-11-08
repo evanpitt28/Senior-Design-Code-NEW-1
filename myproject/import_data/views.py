@@ -23,8 +23,9 @@ def import_data_view(request):
             
             # Save the EEG plot as an image file
             eeg_plot_path = os.path.join(settings.MEDIA_ROOT, 'uploads', 'eeg_plot.png')
-            EEG_image = processed_data.plot(show=False, block=False)
-            EEG_image.savefig(eeg_plot_path)  # Save the matplotlib figure as an image
+            EEG_image = processed_data.plot(scalings='auto', show=False, block=False)
+            EEG_image.set_size_inches(40,10)
+            EEG_image.savefig(eeg_plot_path, dpi=300, bbox_inches='tight')  # Save the matplotlib figure as an image
             #EEG_image.close()  # Close the plot to free memory
             
             # Create a URL for the plot

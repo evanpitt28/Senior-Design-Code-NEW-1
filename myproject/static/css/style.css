@@ -160,3 +160,16 @@ h2 {
 .import-data-container .btn:hover {
     background-color: #2478a5; /* Darken on hover */
 }
+
+.eeg-plot-container {
+    text-align: center;
+    overflow-x: auto; /* Enables horizontal scrolling if needed */
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.eeg-plot {
+    width: 100%;  /* Span the full width of the container */
+    height: auto; /* Automatically adjust height to maintain aspect ratio */
+    max-height: 500px; /* Optional: Limit the max height for better viewing */
+}
