@@ -33,8 +33,10 @@ def settings_view(request):
 
 def homepage(request):
     # return HttpResponse("Hello World! I'm Home.")
+    create_bar_graph_with_ci()  # Generates and saves the graph
     upload_result = request.session.pop('upload_result', None)  # Get result and clear it from session
     return render(request, 'home.html', {'upload_result': upload_result})
+
 
 
 def about(request):
@@ -45,6 +47,6 @@ def bargraph(request):
     create_bar_graph_with_ci()  # Call the function to generate the graph
     return render(request, 'bargraph.html')
 
-def bar_chart_view(request):
-    create_bar_graph_with_ci()  # Generate the updated image
-    return render(request, 'bar_chart.html', {'timestamp': now().timestamp()})
+#def bar_chart_view(request):
+    #create_bar_graph_with_ci()  # Generate the updated image
+    #return render(request, 'bar_chart.html', {'timestamp': now().timestamp()})

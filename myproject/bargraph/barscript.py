@@ -14,8 +14,8 @@ def create_bar_graph_with_ci():
     plt.close('all')  # Close all open figures
 
     categories = ['Stroke', 'Seizure', 'N/A']
-    values = [80,15,5]
-    confidence_intervals = [5,5,5]
+    values = [98,0.5,1.5]
+    confidence_intervals = [2,2,2]
 
     # Set up the figure and plot
     fig, ax = plt.subplots()
@@ -40,5 +40,5 @@ def create_bar_graph_with_ci():
     # Save the plot as an image
     output_path = os.path.join(settings.BASE_DIR,'static', 'bar_graph_ci.png')
     print(f"Saving image to: {output_path}")
-    plt.savefig({output_path})  # Save to Django static folder
+    plt.savefig(output_path)  # Save to Django static folder
     
