@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h2>EEG Analysis Result</h2>
+<h2>EEG Analysis Results</h2>
 
 <p>{{ result }}</p> <!-- Display the ML result -->
 
@@ -27,4 +27,19 @@
     }
 </style>
 
+<br>
+<br> 
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bar Chart with CI</title>
+</head>
+<body>
+    <h1>Diagnosis Chart with Confidence Intervals</h1>
+    <img src="{% static 'bar_graph_ci.png' %}?{{ timestamp }}" alt="Bar Graph with Confidence Intervals">
+</body>
+</html>
 {% endblock %}

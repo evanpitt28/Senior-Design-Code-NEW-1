@@ -10,11 +10,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bar Chart with CI</title>
+    <title>Example Bar Chart with CI</title>
 </head>
 <body>
-    <h1>Diagnosis Chart with Confidence Intervals</h1>
-    <img src="{% static 'bar_graph_ci.png' %}?{{ timestamp }}" alt="Bar Graph with Confidence Intervals">
+    <h1>Example Diagnosis Chart with Confidence Intervals</h1>
+    <img src="{% static 'bar_graph_ci_example.png' %}?{{ timestamp }}" alt="Bar Graph with Confidence Intervals">
+    <p>Select <b>Import Data</b> to get started uploading the EEG results in a .edf file format.</p>
+    <br>
+    <p>Upon uploading data, you will see a chart with results similar to the one above.</p>
 </body>
 </html>
 {% endblock %}
