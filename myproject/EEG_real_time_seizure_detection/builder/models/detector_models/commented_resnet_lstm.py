@@ -71,7 +71,7 @@ class CNN2D_LSTM_V8_4(nn.Module):
         self.hidden_dim = 256  # Number of features in the hidden state of the LSTM
         self.dropout = args.dropout  # Dropout rate for regularization
         self.num_data_channel = args.num_channel  # Number of data channels (e.g., EEG channels)
-        self.sincnet_bandnum = args.sincnet_bandnum  # SincNet configuration
+        self.sincnet_bandnum = 20  # SincNet configuration
         self.feature_extractor = args.enc_model  # Feature extraction method
 
         # Initialize feature extraction model based on selected type
