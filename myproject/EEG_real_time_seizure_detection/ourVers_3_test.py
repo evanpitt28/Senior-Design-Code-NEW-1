@@ -23,7 +23,8 @@ import torch.nn as nn
 from builder.models.detector_models.commented_resnet_lstm import CNN2D_LSTM_V8_4  # Import ResNetLSTM model directly (external file needed)
 from builder.utils.metrics import Evaluator
 from builder.utils.logger import Logger
-from builder.trainer.trainer import sliding_window_v1
+# Instead of importing from builder.trainer, use the correct module
+from builder.trainer.OurVers_trainer import sliding_window_v2
 from builder.utils.utils import set_seeds, set_devices
 
 # Manually set arguments here instead of using argparse
@@ -55,6 +56,17 @@ class Args:
     data_path = '/path/to/data_directory/data_path'
     dir_root = os.getcwd()
     dir_result = '/path/to/results_directory'
+    num_layers = 2
+    dropout = 0.1
+    num_channel =  32 # Number of data channels (e.g., EEG channels)
+    sincnet_bandnum = 20 # SincNet configuration
+    enc_model = "sincnet"
+    window_size = 1
+    sincnet_kernel_size = 81
+    sincnet_layer_num = 1
+    cnn_channel_sizes = [20, 10, 10]
+    sincnet_stride = 2
+    sincnet_input_normalize = "none"
 
 args = Args()
 
@@ -68,8 +80,8 @@ criterion = nn.CrossEntropyLoss(reduction='none')
 iteration = 1
 set_seeds(args)
 device = torch.device("mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu")
-logger = Logger(args)
-logger.loss = 0
+#logger = Logger(args)
+logger = 0
 print("Project name is: ", args.project_name)
 
 # seed
@@ -95,7 +107,7 @@ def get_data_preprocessed(args):
 train_loader, val_loader, test_loader, len_train_dir, len_val_dir, len_test_dir = get_data_preprocessed(args)
 
 
-model = CNN2D_LSTM_V8_4(args).to(device)  # Directly initialize ResNetLSTM and move to the appropriate device (CPU, GPU, or MPS)
+model = CNN2D_LSTM_V8_4(args, device).to(device)  # Directly initialize ResNetLSTM and move to the appropriate device (CPU, GPU, or MPS)
 evaluator = Evaluator(args)
 names = [args.project_name]
 average_speed_over = 10
@@ -109,12 +121,16 @@ for name in names:
     elif args.best:
         ckpt_path = args.dir_result + '/' + name + '/ckpts/best_{}.pth'.format(str(args.seed))
 
-    ckpt_path = args.dir_result + '/' + name + '/ckpts/best_0.pth'
+    #args.data_path = ''
+    #args.dir_root = os.getcwd()
+    #args.dir_result = '/Users/evanpittman/Downloads/Purdue Y1/Important Docs/Senior Year/Senior Design Code NEW/Iterations_HERE/Senior-Design-Code-NEW-1-6/myproject' 
+    ckpt_path = '/Users/evanpittman/Downloads/Purdue Y1/Important Docs/Senior Year/Senior Design Code NEW/Iterations_HERE/Senior-Design-Code-NEW-1-6/myproject/best_model_weights.pth'
     ckpt = torch.load(ckpt_path, map_location=device)
+    #print(ckpt.keys())
 
-    state = {k: v for k, v in ckpt['model'].items()}
-    model.load_state_dict(state)
-
+    #state = {k: v for k, v in ckpt['model'].items()}
+    model.load_state_dict(ckpt, strict=False)
+    
     model.eval()
     print('loaded model')
     print("Test type is: ", args.test_type)
@@ -123,17 +139,18 @@ for name in names:
     iteration = 0
     evaluator.seizure_wise_eval_for_binary = True
 
+
     with torch.no_grad():
         for test_batch in tqdm(test_loader, total=len(test_loader), bar_format="{desc:<5}{percentage:3.0f}%|{bar:10}{r_bar}"):
             test_x, test_y, seq_lengths, target_lengths, aug_list, signal_name_list = test_batch
-            test_x = test_x.to(device)
+            #test_x = test_x.to(device)
             iteration += 1
             
             ### Model Structures
             print(f'iteration : {iteration}')
             iteration_start = time.time()
             if args.task_type == "binary": 
-                model, _ = sliding_window_v1(args, iteration, test_x, test_y, seq_lengths, 
+                model, _ = sliding_window_v2(args, iteration, test_x, test_y, seq_lengths, 
                                             target_lengths, model, logger, device, scheduler,
                                             optimizer, criterion, signal_name_list=signal_name_list, flow_type="test")
             else:
@@ -150,4 +167,4 @@ for name in names:
                 print(f'Time taken per window slide :    {(iteration_end-iteration_start)/num_windows} seconds')
                 exit(1)
 
-    logger.test_result_only()
+    #logger.test_result_only()
