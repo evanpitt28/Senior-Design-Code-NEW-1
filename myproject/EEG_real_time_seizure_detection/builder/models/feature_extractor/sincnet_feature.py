@@ -180,17 +180,17 @@ class SincConv_fast(nn.Module):
 class sincnet_conv_layers(nn.Module):
     def __init__(self, args):
         super(sincnet_conv_layers, self).__init__()
-        self.cnn_layer_num = args.sincnet_layer_num
+        self.cnn_layer_num = 2
         self.conv  = nn.ModuleList([])
         self.ln  = nn.ModuleList([])
         self.act = nn.ModuleList([])
         self.maxpool = nn.ModuleList([])
 
-        slice_len = args.window_size_sig + (args.sincnet_kernel_size -1)
+        slice_len = args.window_size + (args.sincnet_kernel_size -1)
         cnn_channel_sizes = args.cnn_channel_sizes
         cnn_kernel_sizes = [args.sincnet_kernel_size, 5, 5]
         self.stride_list = [args.sincnet_stride, 2, 2]
-        current_input = args.window_size_sig + (args.sincnet_kernel_size -1)
+        current_input = args.window_size + (args.sincnet_kernel_size -1)
         normalize = args.sincnet_input_normalize
         
         for i in range(self.cnn_layer_num):
