@@ -32,7 +32,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.autograd import Variable
 from torchsummary import summary
-from torchinfo import summary
+#from torchinfo import summary
 
 # Custom modules and utilities (required external Python files)
 from builder.utils.lars import LARC  # Optimizer utility (external file needed)
@@ -81,6 +81,9 @@ class Args:
 
     binary_target_groups = 2
     output_dim = 2
+
+    #added by alyssa
+    #dir_result = path_configs['dir_result']
 
     """    # target groups options
     # "1": '0':'bckg', '1':'gnsz', '2':'fnsz', '3':'spsz', '4':'cpsz', '5':'absz', '6':'tnsz', '7':'tcsz', '8':'mysz'

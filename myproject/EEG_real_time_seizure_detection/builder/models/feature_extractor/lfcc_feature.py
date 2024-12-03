@@ -30,7 +30,7 @@ class LFCC_FEATURE(nn.Module):
         self.feature_extract_by = feature_extract_by.lower()
         self.freq_resolution = 2
 
-        assert platform.system().lower() == 'linux' or platform.system().lower() == 'darwin'
+        assert platform.system().lower() == 'linux' or platform.system().lower() == 'darwin' or platform.system().lower() == 'windows'
         self.transforms = torchaudio.transforms.LFCC(sample_rate = 200, 
                                     n_filter = 32,
                                     f_min = 0.0,    # 0 Hz ~

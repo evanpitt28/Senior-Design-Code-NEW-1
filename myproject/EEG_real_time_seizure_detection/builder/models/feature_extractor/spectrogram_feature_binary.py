@@ -31,7 +31,7 @@ class SPECTROGRAM_FEATURE_BINARY1(nn.Module):
         self.freq_resolution = 1
 
         if self.feature_extract_by == 'kaldi':
-            assert platform.system().lower() == 'linux' or platform.system().lower() == 'darwin'
+            assert platform.system().lower() == 'linux' or platform.system().lower() == 'darwin' or platform.system().lower() == 'windows'
             import torchaudio
 
             self.transforms = torchaudio.transforms.Spectrogram(n_fft=self.freq_resolution*self.sample_rate,
@@ -81,7 +81,7 @@ class SPECTROGRAM_FEATURE_BINARY2(nn.Module):
         self.freq_resolution = 1
 
         if self.feature_extract_by == 'kaldi':
-            assert platform.system().lower() == 'linux' or platform.system().lower() == 'darwin'
+            assert platform.system().lower() == 'linux' or platform.system().lower() == 'darwin' or platform.system().lower() == 'windows'
             import torchaudio
 
             self.transforms = torchaudio.transforms.Spectrogram(n_fft=self.freq_resolution*self.sample_rate,
